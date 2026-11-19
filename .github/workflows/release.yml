@@ -1,0 +1,29 @@
+# Legt für jeden Ordner versionen/<x.y.z>/ automatisch eine GitHub-Release an
+# (ZIP + notes.md), sofern es sie noch nicht gibt. Der Hörbuch-Player sucht dort nach Updates.
+name: Release anlegen
+on:
+  push:
+    branches: [main]
+    paths: ["versionen/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fehlende Releases anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for d in $(ls -d versionen/*/ | sort -V); do
+            ver=$(basename "$d")
+            if gh release view "v$ver" >/dev/null 2>&1; then
+              echo "v$ver gibt es schon"
+              continue
+            fi
+            notes="$d/notes.md"; [ -f "$notes" ] || notes=/dev/null
+            gh release create "v$ver" "$d"/*.zip --title "Version $ver" --notes-file "$notes" --latest
+            echo "v$ver angelegt"
+          done
