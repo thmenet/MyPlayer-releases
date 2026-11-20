@@ -1,0 +1,2 @@
+- **Mini-Player:** Neuer Knopf oben (neben Hell/Dunkel) öffnet ein kleines Fenster, das immer im Vordergrund bleibt – mit Cover, Titel, Fortschritt zum Ziehen und Zurück / Play / Vor, für Hörbuch und Apple Music. Leertaste und Pfeiltasten funktionieren darin. Am PC geht das grosse Fenster dabei in die Taskleiste; der Knopf ⤢ oder das Schliessen des Mini-Players holt es zurück. (Im Web nur in Chrome/Edge am Computer.)
+
