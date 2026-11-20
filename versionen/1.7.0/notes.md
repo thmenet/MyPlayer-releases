@@ -1,0 +1,2 @@
+- **Eigenes Mini-Fenster «MyPlayer (mini)»:** Der Mini-Player ist jetzt ein eigenes kleines Fenster mit MyPlayer-Logo und Titel in der Titelleiste (statt der Adresse 127.0.0.1). Kompakter, immer im Vordergrund, unten rechts über der Taskleiste. Abgespielt wird weiter im grossen Fenster (das in die Taskleiste geht) – das kleine steuert es fern. Schliesst du das Mini-Fenster oder klickst ⤢, kommt das grosse zurück; schliesst du das grosse, geht das kleine mit.
+
