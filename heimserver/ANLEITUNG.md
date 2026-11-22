@@ -107,6 +107,48 @@ und nach jedem Update von selbst. `/mnt/hoerbuecher` ist bereits als Bibliothek 
   (Code auf player.menet.ch → Geräte → «Code erzeugen»). Jedes Profil verbindet sein eigenes Konto.
 - **Updates:** wie beim PC-Player über den Hinweis «Neue Version» in der Oberfläche – oder das Installations-Skript nochmals ausführen.
 
+## 6. Tailscale: sichere Adresse (https) und Zugriff von unterwegs
+
+Damit Apple Music auch auf dem Heimserver geht (Apple gibt die Anmeldung nur an Seiten mit **https** weiter)
+und damit «Meine Musik» auch unterwegs erreichbar ist. Tailscale verbindet eure Geräte verschlüsselt miteinander –
+der Heimserver bleibt trotzdem **nicht** offen im Internet.
+
+**6.1 Konto:** auf <https://tailscale.com> ein Konto anlegen (z. B. mit der Apple-ID oder Microsoft), Plan «Personal» (gratis).
+
+**6.2 Im Container** (Proxmox → Container 105 → Console, als root):
+
+```bash
+apt-get install -y curl
+curl -fsSL https://tailscale.com/install.sh | sh
+# Der Container darf kein eigenes Netzwerkgerät anlegen – darum läuft Tailscale im «Userspace»-Modus:
+sed -i 's/^FLAGS=.*/FLAGS="--tun=userspace-networking"/' /etc/default/tailscaled
+systemctl restart tailscaled
+tailscale up --hostname=myplayer
+```
+
+`tailscale up` zeigt einen Link → im Browser öffnen und mit dem Tailscale-Konto bestätigen.
+
+**6.3 https einschalten:** auf <https://login.tailscale.com/admin/dns> → **MagicDNS** einschalten (falls nicht schon an)
+und weiter unten bei **HTTPS Certificates** auf «Enable HTTPS» klicken.
+
+**6.4 MyPlayer über https anbieten** (wieder in der Container-Console):
+
+```bash
+tailscale serve --bg 48219
+tailscale serve status
+```
+
+Die zweite Zeile zeigt die neue Adresse, z. B. `https://myplayer.tail1234.ts.net`. Der erste Aufruf kann ein paar Sekunden dauern
+(das Zertifikat wird geholt).
+
+**6.5 Geräte:** auf dem iPhone/iPad die App **Tailscale** aus dem App Store, auf dem PC von <https://tailscale.com/download> –
+jeweils mit demselben Konto anmelden (Familienmitglieder: im Tailscale-Admin unter «Users» einladen). Dann die neue
+`https://…ts.net`-Adresse öffnen und auf dem Handy wieder «Zum Home-Bildschirm» – diese Adresse geht zu Hause **und** unterwegs.
+
+- **Gäste** brauchen kein Tailscale: Der QR-Code der Jukebox zeigt immer die Adresse im Heimnetz.
+- **Sonos** läuft unverändert über das Heimnetz.
+- Prüfen: `tailscale status` (ist der Container verbunden?), `tailscale serve status` (Adresse).
+
 ## Hilfe
 
 | Was | Befehl in der Container-Konsole |
