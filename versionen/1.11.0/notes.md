@@ -1,0 +1,3 @@
+- **Sonos: Boxen kombinieren.** In der Lautsprecher-Auswahl gibt es während der Wiedergabe den Abschnitt «Mitspielen lassen»: Mit dem Schalter spielt ein weiterer Raum gleichzeitig dasselbe (Sonos-Gruppe), Schalter aus nimmt ihn wieder heraus. Die Leiste zeigt z. B. «Wohnzimmer + Küche», die Lautstärke gilt für die ganze Gruppe.
+- **Meine Musik: Blättern.** Neue Ansicht neben Alben/Interpreten/Neu: Die Alben stehen wie Platten im Regal, das gewählte Cover gross in der Mitte. Blättern mit den Pfeiltasten, dem Mausrad, durch Ziehen/Wischen, mit dem Regler darunter oder durch Klick auf ein Nachbar-Cover. Klick auf das Cover in der Mitte (oder Enter) öffnet das Album, «Abspielen» spielt es gleich ab.
+
