@@ -11,3 +11,12 @@ Favoriten, Archiv, Schlaf-Timer, Tempo 0.7–2.0 und automatisches Weiterhören.
 
 Updates holt der Player selbst («Neue Version verfügbar» → «Jetzt aktualisieren»).
 Fortschritt, Lesezeichen und Einstellungen bleiben auf dem eigenen Rechner (`%APPDATA%\Hoerbuchplayer`).
+
+## Heimserver (Proxmox / Linux)
+
+MyPlayer kann auch ohne Fenster dauernd im Heimnetz laufen (z. B. in einem Proxmox-Container) und die Hörbücher vom NAS lesen –
+mit Profilen für jede Person. Anleitung: [heimserver/ANLEITUNG.md](heimserver/ANLEITUNG.md). Installation im Container als root:
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/thmenet/MyPlayer-releases/main/heimserver/installieren.sh)
+```
