@@ -98,6 +98,8 @@ und nach jedem Update von selbst. `/mnt/hoerbuecher` ist bereits als Bibliothek 
 ## 5. Benutzen
 
 - Im Browser die Adresse öffnen → **«Wer hört?»** → für jede Person ein Profil anlegen (ohne PIN).
+- **Meine Musik:** Zahnrad → «Musik-Ordner» → `/mnt/musik` hinzufügen → Speichern (bei einer neuen Installation schon eingetragen).
+  Das erste Einlesen einer grossen Sammlung dauert einige Minuten; danach unter **Musik → Meine Musik**.
 - **Auf dem Handy:** Adresse in Safari öffnen → Teilen → «Zum Home-Bildschirm».
 - **player.menet.ch verbinden** (für unterwegs): im eigenen Profil → Zahnrad → player.menet.ch → Code eingeben
   (Code auf player.menet.ch → Geräte → «Code erzeugen»). Jedes Profil verbindet sein eigenes Konto.

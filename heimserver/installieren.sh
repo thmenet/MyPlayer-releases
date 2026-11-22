@@ -45,10 +45,12 @@ if [ ! -f "$EINST" ]; then
   python3 - "$EINST" <<'PY'
 import json, os, sys
 s = {"folders": [d for d in ("/mnt/hoerbuecher",) if os.path.isdir(d)],
-     "podcast_folders": [d for d in ("/mnt/podcasts",) if os.path.isdir(d)]}
+     "podcast_folders": [d for d in ("/mnt/podcasts",) if os.path.isdir(d)],
+     "music_folders": [d for d in ("/mnt/musik",) if os.path.isdir(d)]}
 s["folders"] += s["podcast_folders"]
 json.dump(s, open(sys.argv[1], "w"), indent=1)
 print("   Bibliothek:", ", ".join(s["folders"]) or "noch keine – später in den Einstellungen eintragen")
+print("   Musik:", ", ".join(s["music_folders"]) or "keine – später in den Einstellungen unter «Musik-Ordner»")
 PY
 fi
 
