@@ -35,6 +35,38 @@ ls /mnt/nas/hoerbuecher | head      # hier müssen deine Hörbücher erscheinen
 
 (Warum auf dem Host? Ein normaler, «unprivilegierter» Container darf selbst keine NFS-Freigaben einbinden – der Host reicht den Ordner weiter.)
 
+### Variante: Windows-Freigabe (SMB) statt NFS
+
+Geht ohne Einstellungen auf der Synology – mit einem normalen NAS-Benutzer, der die Ordner lesen darf (z. B. so, wie du sie unter Windows als
+`\\MenetStation\music` siehst). Dann Schritt 1 und 2 durch das hier ersetzen (in der **Host**-Shell):
+
+```bash
+apt install -y cifs-utils
+mkdir -p /mnt/nas/hoerbuecher /mnt/nas/musik
+nano /root/.smb-nas
+```
+
+In den Editor diese zwei Zeilen schreiben, dann speichern mit **Strg+O, Enter, Strg+X**:
+
+```
+username=<NAS-Benutzer>
+password=<Passwort>
+```
+
+```bash
+chmod 600 /root/.smb-nas
+OPT="credentials=/root/.smb-nas,ro,vers=3.0,iocharset=utf8,file_mode=0444,dir_mode=0555,_netdev,nofail"
+echo "//MenetStation/Hoerbuecher /mnt/nas/hoerbuecher cifs $OPT 0 0" >> /etc/fstab
+echo "//MenetStation/music       /mnt/nas/musik       cifs $OPT 0 0" >> /etc/fstab
+systemctl daemon-reload && mount -a
+ls /mnt/nas/hoerbuecher | head      # hier müssen deine Hörbücher erscheinen
+```
+
+- Findet der Proxmox den Namen `MenetStation` nicht («could not resolve address»): statt `MenetStation` die **IP-Adresse** der Synology einsetzen.
+- Das Passwort steht nur auf dem Proxmox-Host (`/root/.smb-nas`, nur für root lesbar). Sauberer ist später ein eigener NAS-Benutzer
+  «myplayer» mit nur Leserechten – dafür braucht es den Admin-Zugang.
+- Dann bei Schritt 3 die Ordner `/mnt/nas/hoerbuecher` und `/mnt/nas/musik` in den Container reichen.
+
 ## 3. Container anlegen
 
 1. **local → CT-Vorlagen → Vorlagen**: `debian-13-standard` herunterladen (falls noch nicht vorhanden).
